@@ -5,7 +5,6 @@ import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.util.Pair;
 
-import istanbul.gamelab.ngdroid.util.Log;
 import istanbul.gamelab.ngdroid.util.Utils;
 
 public class Player extends GameObject {
@@ -44,7 +43,7 @@ public class Player extends GameObject {
 
     private Bitmap image;
     private Rect source[][][], destination;
-    private Rect collisionRect;
+    private Rect collisionRectX, collisionRectY;
     private int sourceX, sourceY, sourceW, sourceH;
     private int destinationX, destinationY, destinationW, destinationH;
 
@@ -77,7 +76,8 @@ public class Player extends GameObject {
         destinationW = 128;
         destinationH = 128;
         destination = new Rect(destinationX, destinationY, destinationW + destinationX, destinationH + destinationY);
-        collisionRect = new Rect();
+        collisionRectX = new Rect();
+        collisionRectY = new Rect();
 
         for(int i = 0; i < Animation.values().length; i++) {
             source[i] = new Rect[Animation.values()[i].positionCount][];
@@ -94,8 +94,8 @@ public class Player extends GameObject {
                 }
             }
         }
-        currentAnimation = Animation.WALK.no;
-        currentPosition = Direction.WEST.no;
+        currentAnimation = Animation.IDLE.no;
+        currentPosition = Direction.NORTH.no;
         animationNo = 0;
 
         speedX = 15;
@@ -103,7 +103,7 @@ public class Player extends GameObject {
         directionX = 0;
         directionY = 0;
 
-        bulletPoolSize = 1;
+        bulletPoolSize = 10;
         bulletPool = new Bullet[bulletPoolSize];
         for(int i = 0; i < bulletPoolSize; i++) bulletPool[i] = new Bullet(root);
         fireAnimCounter = 5;
@@ -118,8 +118,9 @@ public class Player extends GameObject {
         } else if(currentAnimation != Animation.FIRE.no) {
             if(currentAnimation != Animation.WALK.no) setAnimation(Animation.WALK.no);
             calculateDirection();
-            collisionRect.set(destinationX + (int)(speedX * directionX), destinationY + (int)(speedY * directionY), destinationX + (int)(speedX * directionX) + destinationW,destinationY + (int)(speedY * directionY) + destinationH);
-            if(root.levels.get(root.currentLevel).isCollision(collisionRect)) {
+            collisionRectX.set(destinationX + (int)(speedX * directionX), destinationY, destinationX + (int)(speedX * directionX) + destinationW,destinationY + destinationH);
+            collisionRectY.set(destinationX, destinationY + (int)(speedY * directionY), destinationX + destinationW, destinationY + (int)(speedY * directionY) + destinationH);
+            if(root.levels.get(root.currentLevel).isCollision(collisionRectX) || root.levels.get(root.currentLevel).isCollision(collisionRectY)) {
                 setAnimation(Animation.IDLE.no);
             } else {
                 destinationX += speedX * directionX;

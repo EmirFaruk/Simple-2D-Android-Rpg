@@ -36,12 +36,13 @@ public class GameCanvas extends BaseCanvas {
         player.update();
         root.levels.get(root.currentLevel).update();
 
-        for(int i = 0; i < root.levels.get(root.currentLevel).getAnimals().length; i++) {
+        //TODO ADD ANIMAL AI
+        /*for(int i = 0; i < root.levels.get(root.currentLevel).getAnimals().length; i++) {
             if(Math.abs(player.getPosition()[0] - root.levels.get(root.currentLevel).getAnimals()[i].getPosition().first) < 100 &&
                     Math.abs(player.getPosition()[1] - root.levels.get(root.currentLevel).getAnimals()[i].getPosition().second) < 100) {
                 root.levels.get(root.currentLevel).getAnimals()[i].move(player.getPosition()[0], player.getPosition()[1], player.getDirection());
             }
-        }
+        }*/
     }
 
     public void draw(Canvas canvas) {

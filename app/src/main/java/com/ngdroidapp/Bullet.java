@@ -19,7 +19,7 @@ public class Bullet extends GameObject {
     public Bullet(NgApp ngApp) {
         super(ngApp);
         bullet = new Rect();
-        speed = 100;
+        speed = 50;
         lifeTimeSec = 5;
         lifeTime = 5;
     }
@@ -32,7 +32,6 @@ public class Bullet extends GameObject {
             hasTarget = false;
             lifeTime = lifeTimeSec;
         }
-
         positionX += -(Math.sin(Math.toRadians(angle))) * speed;
         positionY += (Math.cos(Math.toRadians(angle)))  * speed;
 

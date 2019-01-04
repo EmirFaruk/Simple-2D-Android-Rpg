@@ -49,8 +49,8 @@ public class Level1 implements ILevel {
 
         animalCount = 4;
         animal = new Animal[animalCount];
-        animal[0] = new Animal(root, Animal.Animals.Lama);
-        animal[1] = new Animal(root, Animal.Animals.Cow);
+        animal[0] = new Animal(root, Animal.Animals.Cow);
+        animal[1] = new Animal(root, Animal.Animals.Lama);
         animal[2] = new Animal(root, Animal.Animals.Sheep);
         animal[3] = new Animal(root, Animal.Animals.Pig);
 
@@ -116,9 +116,12 @@ public class Level1 implements ILevel {
                 animal[i].isAlive = false;
                 return true;
             }
-        }
-        for(int i = 0; i < fenceCount; i++) {
-           if(fences[i].getRect().intersect(obj)) return true;
+       }
+       for(int i = 0; i < fenceCount; i++) {
+           if(fences[i].getRect().intersect(obj)) {
+               Log.i("cevrim", "cevooo");
+               return true;
+           }
         }
         return false;
     }

@@ -32,7 +32,7 @@ public class NgApp extends BaseApp {
 
     public void setup() {
         appManager.setUnitResolution(AppManager.RESOLUTION_QHD);
-        appManager.setFrameRateTarget(20);
+        appManager.setFrameRateTarget(24);
 
         levels = new ArrayList<>();
         levels.add(new Level0(this));
